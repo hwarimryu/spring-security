@@ -27,10 +27,16 @@
 4. 인증 결과가 필터에 반환된다.
 5. 인증된 엔티티에 관한 세부 정보가 보안 컨텍스트에 저장된다.
 
-### UserDetailsService 구성 요소 재정의
+## 기본 구성요소 재정의
+:각 구성요소를 재정의할 때, configure 메서드를 override 하는 방법, bean으로 등록하는 방법들이 있지만, 두 가지 접근법을 혼합하기보다는 한가지로 통일하는게 이해하기 쉽고 깔끔하다. 
+### UserDetailsService 재정의
 #### 자체적으로 관리하는 자격 증명을 인증에 이용할 수 있다.
 
 1. InMemoryUserDetailsManager 사용
 - 메모리에 자격 증명을 저장해서 Spring Security가 요청을 인증할 때 이용할 수 있게 한다.
 - 운영 단계 application을 위한 것은 아님.
 
+### endpoint 권한 부여(SecurityFilterChain) 재정의
+
+- WebSecurityConfigurerAdapter deprecated 되어 대신 SecurityFilterChain 빈으로 등록하는 방법 사용함.
+  https://covenant.tistory.com/277

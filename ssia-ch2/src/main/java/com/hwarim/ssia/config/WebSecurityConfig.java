@@ -2,14 +2,19 @@ package com.hwarim.ssia.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-public class ProjectConfig {
+public class WebSecurityConfig // extends WebSecurityConfigurerAdapter {
+{
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -41,4 +46,21 @@ public class ProjectConfig {
         // 안그러면 java.lang.IllegalArgumentException There is no PasswordEncoder mapped for the id "null" e 에러남.
         return NoOpPasswordEncoder.getInstance();
     }
+
+    //    WebSecurityConfigurerAdapter deprecated 되어 대신 SecurityFilterChain을 빈으로 등록
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.httpBasic();
+
+        // 모든 요청에 인증이 필요하다.
+//        http.authorizeRequests()
+//                .anyRequest().authenticated();
+
+        // 인증 없이 모든 요청을 할 수 있다.
+        http.authorizeRequests()
+                .anyRequest().permitAll();
+
+        return http.build();
+    }
+
 }
