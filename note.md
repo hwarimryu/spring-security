@@ -27,3 +27,10 @@
 4. 인증 결과가 필터에 반환된다.
 5. 인증된 엔티티에 관한 세부 정보가 보안 컨텍스트에 저장된다.
 
+### UserDetailsService 구성 요소 재정의
+#### 자체적으로 관리하는 자격 증명을 인증에 이용할 수 있다.
+
+1. InMemoryUserDetailsManager 사용
+- 메모리에 자격 증명을 저장해서 Spring Security가 요청을 인증할 때 이용할 수 있게 한다.
+- 운영 단계 application을 위한 것은 아님.
+
